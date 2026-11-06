@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escáner y Calculadora Multimoneda - Sitio Oficial</title>
+    <meta name="description" content="Sitio web oficial de Escáner y Calculadora Multimoneda. Punto de venta, control de inventario bimonetario, escáner de códigos de barras e impresión de tickets para Android.">
+    <meta name="keywords" content="Punto de Venta Android, Escáner Código de Barras, Calculadora Bimonetaria, Impresora Térmica Bluetooth">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="app_icon_512x512.svg">
+
+    <style>
+        :root {
+            --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-header: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #047857 100%);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #e2e8f0;
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #ecfdf5;
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 36px rgba(0,0,0,0.15);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0b0f19;
+            --bg-card: #151c2c;
+            --bg-header: linear-gradient(135deg, #050811 0%, #0f172a 50%, #064e3b 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --primary-light: rgba(16, 185, 129, 0.15);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            [data-theme="auto"] {
+                --bg-body: #0b0f19;
+                --bg-card: #151c2c;
+                --bg-header: linear-gradient(135deg, #050811 0%, #0f172a 50%, #064e3b 100%);
+                --text-main: #f8fafc;
+                --text-muted: #94a3b8;
+                --border-color: #1e293b;
+                --primary-light: rgba(16, 185, 129, 0.15);
+            }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.65;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .top-nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 14px 28px; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(16px); background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .top-nav-brand { display: flex; align-items: center; gap: 12px; color: #ffffff; font-weight: 800; font-size: 1.05rem; text-decoration: none; }
+        .top-nav-brand svg { width: 32px; height: 32px; border-radius: 8px; }
+        .nav-links { display: flex; align-items: center; gap: 20px; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s ease; }
+        .nav-links a:hover { color: var(--primary); }
+
+        .theme-switcher {
+            display: flex; align-items: center; background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 30px; padding: 3px; gap: 2px;
+        }
+        .theme-btn { background: transparent; border: none; color: #cbd5e1; padding: 5px 11px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+        .theme-btn.active { background: var(--primary); color: #ffffff; }
+
+        .hero {
+            background: var(--bg-header); color: #ffffff; padding: 150px 20px 90px 20px;
+            text-align: center; position: relative; box-shadow: var(--shadow-lg);
+        }
+        .hero-content { max-width: 900px; margin: 0 auto; }
+        .app-hero-icon { width: 120px; height: 120px; border-radius: 28px; background: #0f172a; box-shadow: 0 20px 48px rgba(0,0,0,0.5), 0 0 0 4px rgba(16, 185, 129, 0.5); margin: 0 auto 24px auto; overflow: hidden; }
+        .app-hero-icon svg { width: 100%; height: 100%; }
+
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(16, 185, 129, 0.18); border: 1px solid rgba(16, 185, 129, 0.35); padding: 6px 18px; border-radius: 30px; font-size: 0.88rem; font-weight: 700; color: #34d399; margin-bottom: 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 900; line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 16px; }
+        .hero h1 span { background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 36px auto; }
+
+        .hero-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: #ffffff; padding: 15px 30px; border-radius: 14px; font-weight: 700; font-size: 1.05rem; text-decoration: none; box-shadow: 0 8px 24px var(--primary-glow); transition: var(--transition); }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 30px; border-radius: 14px; font-weight: 700; font-size: 1.05rem; text-decoration: none; backdrop-filter: blur(10px); transition: var(--transition); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-2px); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 80px 20px; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+        .section-title p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; }
+        .feature-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 32px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); transition: var(--transition); display: flex; flex-direction: column; gap: 16px; }
+        .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(16, 185, 129, 0.4); }
+        .feature-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--primary-light); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+        .feature-card h3 { font-size: 1.3rem; font-weight: 800; }
+        .feature-card p { color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; }
+
+        .cta-banner { background: linear-gradient(135deg, #0f172a 0%, #047857 100%); color: #ffffff; border-radius: var(--radius-lg); padding: 60px 40px; text-align: center; box-shadow: var(--shadow-lg); margin-top: 60px; }
+        .cta-banner h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+        .cta-banner p { color: #cbd5e1; max-width: 600px; margin: 0 auto 30px auto; font-size: 1.1rem; }
+
+        footer { border-top: 1px solid var(--border-color); padding: 50px 20px 30px 20px; background: var(--bg-card); text-align: center; color: var(--text-muted); font-size: 0.92rem; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="#" class="top-nav-brand">
+            <svg viewBox="0 0 108 108">
+                <rect width="108" height="108" rx="22" fill="#0F172A"/>
+                <path fill="#0284C7" d="M40,43 h28 v20 h-28 z" />
+                <path fill="#FFFFFF" d="M52.5,48.5 h3 v1 h-1 v1 c1.1,0 2,0.9 2,2 c0,1.1 -0.9,2 -2,2 h-0.5 v1 h-1 v-1 h-2 v-1.5 h3 c0.3,0 0.5,-0.2 0.5,-0.5 c0,-0.3 -0.2,-0.5 -0.5,-0.5 h-1 c-1.1,0 -2,-0.9 -2,-2 c0,-1.1 0.9,-2 2,-2 h0.5 v-1 z" />
+            </svg>
+            <span>Escáner & POS</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#funciones">Funciones</a>
+            <a href="index.html">Políticas de Privacidad</a>
+            
+            <div class="theme-switcher">
+                <button class="theme-btn active" onclick="setTheme('auto')">🤖</button>
+                <button class="theme-btn" onclick="setTheme('light')">☀️</button>
+                <button class="theme-btn" onclick="setTheme('dark')">🌙</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="app-hero-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+                    <rect width="108" height="108" rx="22" fill="#0F172A"/>
+                    <path fill="#1E293B" d="M54,18 C73.88,18 90,34.12 90,54 C90,73.88 73.88,90 54,90 C34.12,90 18,73.88 18,54 C18,34.12 34.12,18 54,18 Z" />
+                    <path fill="#0EA5E9" d="M54,22 C71.67,22 86,36.33 86,54 C86,71.67 71.67,86 54,86 C36.33,86 22,71.67 22,54 C22,36.33 36.33,22 54,22 Z" opacity="0.25"/>
+                    <path fill="#F8FAFC" d="M41,25 h26 v16 h-26 z" />
+                    <path fill="#F8FAFC" d="M41,25 l2.6,-3 l2.6,3 l2.6,-3 l2.6,3 l2.6,-3 l2.6,3 l2.6,-3 l2.6,3 l2.6,-3 l2.6,3 v3 h-26 z" />
+                    <path fill="#64748B" d="M44,28 h12 v1.5 h-12 z M44,31 h18 v1.5 h-18 z M44,34 h15 v1.5 h-15 z" />
+                    <path fill="#0F172A" d="M35,42 c0,-3.3 2.7,-6 6,-6 h26 c3.3,0 6,2.7 6,6 v38 c0,3.3 -2.7,6 -6,6 h-26 c-3.3,0 -6,-2.7 -6,-6 z" />
+                    <path fill="#1E293B" d="M37,43 c0,-2.2 1.8,-4 4,-4 h26 c2.2,0 4,1.8 4,4 v36 c0,2.2 -1.8,4 -4,4 h-26 c-2.2,0 -4,-1.8 -4,-4 z" />
+                    <path fill="#0284C7" d="M40,43 h28 v20 h-28 z" />
+                    <path fill="#38BDF8" d="M40,43 h28 v3.5 h-28 z" />
+                    <path fill="#FFFFFF" d="M52.5,48.5 h3 v1 h-1 v1 c1.1,0 2,0.9 2,2 c0,1.1 -0.9,2 -2,2 h-0.5 v1 h-1 v-1 h-2 v-1.5 h3 c0.3,0 0.5,-0.2 0.5,-0.5 c0,-0.3 -0.2,-0.5 -0.5,-0.5 h-1 c-1.1,0 -2,-0.9 -2,-2 c0,-1.1 0.9,-2 2,-2 h0.5 v-1 z M52.5,50.5 c-0.3,0 -0.5,0.2 -0.5,0.5 c0,0.3 0.2,0.5 0.5,0.5 h1 v-1 h-1 z" />
+                    <path fill="#E0F2FE" d="M43,58 h22 v2 h-22 z" />
+                    <path stroke="#38BDF8" stroke-width="1.2" stroke-linecap="round" d="M61,48 A 3 3 0 0 1 61,52 M63.5,46.5 A 5 5 0 0 1 63.5,53.5" />
+                    <path fill="#0F172A" d="M39,66 h30 v1.5 h-30 z" />
+                    <path fill="#475569" d="M41,70 h6 v3 h-6 z M49,70 h6 v3 h-6 z M57,70 h6 v3 h-6 z" />
+                    <path fill="#475569" d="M41,75 h6 v3 h-6 z M49,75 h6 v3 h-6 z M57,75 h6 v3 h-6 z" />
+                    <path fill="#22C55E" d="M65,70 h4 v8 h-4 z" />
+                    <path fill="#3B82F6" d="M46,80 h24 c1.1,0 2,0.9 2,2 v4 c0,1.1 -0.9,2 -2,2 h-24 c-1.1,0 -2,-0.9 -2,-2 v-4 c0,-1.1 0.9,-2 2,-2 z" />
+                    <path fill="#F59E0B" d="M49,82.5 h3.5 v3 h-3.5 z" />
+                    <path fill="#60A5FA" d="M55,83 h12 v2 h-12 z" />
+                </svg>
+            </div>
+
+            <div class="hero-badge">
+                <span>⭐</span> Punto de Venta e Inventario Bimonetario
+            </div>
+
+            <h1>Escáner y Calculadora <span>Multimoneda</span></h1>
+            <p>Gestiona tu catálogo de productos, calcula precios bimonetarios al instante, escanea códigos de barras e imprime tickets profesionales en segundos.</p>
+
+            <div class="hero-actions">
+                <a href="https://play.google.com/store/apps/details?id=com.aistudio.inventario.kgjxyt" target="_blank" rel="noopener" class="btn-primary">
+                    <span>📱</span> Descargar en Google Play
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <span>🛡️</span> Políticas de Privacidad
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Features Section -->
+    <div class="container" id="funciones">
+        <div class="section-title">
+            <h2>Todas las Funciones para tu Comercio</h2>
+            <p>Diseñado especialmente para comerciantes, bodegas, tiendas y emprendedores independientes.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>Escáner de Código de Barras</h3>
+                <p>Convierte la cámara de tu teléfono en un escáner industrial. Lee códigos EAN-13, CODE-128 y QR al instante para cobrar o buscar productos en el catálogo.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💱</div>
+                <h3>Calculadora Bimonetaria</h3>
+                <p>Conversión automática de precios en moneda local y divisas. Consulta integrada de tasas de cambio para simplificar las cuentas de tu negocio.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛒</div>
+                <h3>Punto de Venta Rápido (POS)</h3>
+                <p>Modo mostrador de cobro rápido. Registra ventas, calcula vueltos bimonetarios en tiempo real y gestiona carritos pausados sin esfuerzo.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖨️</div>
+                <h3>Impresión Térmica Bluetooth</h3>
+                <p>Conecta impresoras térmicas de 58mm y 80mm para entregar recibos y comprobantes de venta impresos a tus clientes.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Control de Stock y Reportes</h3>
+                <p>Lleva el control de inventario con alertas de bajo stock, márgenes de ganancia, cierre de caja e historial exportable a Excel y PDF.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>100% Local y Privado</h3>
+                <p>Tus datos son 100% tuyos. La aplicación guarda todo en la memoria privada de tu teléfono sin requerir cuentas en la nube ni vender tu información.</p>
+            </div>
+        </div>
+
+        <!-- Banner CTA -->
+        <div class="cta-banner">
+            <h2>Lleva el Control de tu Negocio Hoy Mismo</h2>
+            <p>Descarga Escáner y Calculadora Multimoneda en Google Play Store y optimiza las ventas de tu comercio.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.aistudio.inventario.kgjxyt" target="_blank" rel="noopener" class="btn-primary" style="background: #ffffff; color: #047857;">
+                <span>🚀</span> Descargar la App Gratis
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Inicio</a>
+            <a href="#funciones">Funciones</a>
+            <a href="index.html">Política de Privacidad</a>
+            <a href="mailto:corderorondon0603@gmail.com">Soporte Técnico</a>
+        </div>
+        <p>&copy; 2026 Escáner y Calculadora Multimoneda. Desarrollado por Leonardo Cordero.</p>
+    </footer>
+
+    <!-- Interactive Theme Script -->
+    <script>
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('user-theme-pref', theme);
+        }
+
+        (function initTheme() {
+            const savedTheme = localStorage.getItem('user-theme-pref') || 'auto';
+            setTheme(savedTheme);
+        })();
+    </script>
+</body>
+</html>
