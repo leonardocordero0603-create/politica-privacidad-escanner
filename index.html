@@ -724,7 +724,7 @@
 
     <!-- Floating Top Nav Header -->
     <nav class="top-nav">
-        <a href="#" class="top-nav-brand">
+        <a href="website.html" class="top-nav-brand">
             <svg viewBox="0 0 108 108">
                 <rect width="108" height="108" rx="22" fill="#0F172A"/>
                 <path fill="#0284C7" d="M40,43 h28 v20 h-28 z" />
@@ -732,6 +732,12 @@
             </svg>
             <span>Escáner & POS</span>
         </a>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <a href="website.html" style="color: #ffffff; text-decoration: none; font-size: 0.88rem; font-weight: 600; background: rgba(16,185,129,0.2); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(16,185,129,0.4);">
+                🌐 Sitio Web
+            </a>
+        </div>
 
         <!-- Smart Theme Switcher -->
         <div class="theme-switcher">
@@ -821,17 +827,17 @@
 
             <!-- Resumen de Seguridad -->
             <section id="resumen" class="card searchable-card">
-                <h2><span class="icon">✓</span> Transparencia y Modelo Sin Servidor / Sin Nube</h2>
-                <p>La aplicación <strong>Escáner y Calculadora Multimoneda</strong> se rige bajo el principio de <strong>Privacidad Primero (Local-First)</strong>. La herramienta opera de manera autónoma en el dispositivo del usuario sin requerir registro de cuentas personales ni almacenamiento de datos en servidores externos.</p>
+                <h2><span class="icon">✓</span> Transparencia y Privacidad Comercial</h2>
+                <p>La aplicación <strong>Escáner y Calculadora Multimoneda</strong> se rige bajo el principio de <strong>Privacidad Primero (Local-First)</strong>. La herramienta opera de manera autónoma en el teléfono del usuario, y permite respaldar opcionalmente sus datos directamente en su propio <strong>Google Drive y Google Sheets</strong>.</p>
                 
                 <div class="security-badge-grid">
                     <div class="security-badge">
-                        <div class="number">100%</div>
-                        <div class="label">Almacenamiento Local</div>
+                        <div class="number">Local</div>
+                        <div class="label">Base en el Teléfono</div>
                     </div>
                     <div class="security-badge">
-                        <div class="number">0</div>
-                        <div class="label">Cuentas o Nube</div>
+                        <div class="number">Privado</div>
+                        <div class="label">Respaldo en tu Google</div>
                     </div>
                     <div class="security-badge">
                         <div class="number">Directo</div>
@@ -840,7 +846,7 @@
                 </div>
 
                 <div class="highlight-box">
-                    <strong>Garantía Absoluta de Privacidad Comercial:</strong> Sus datos de inventario, productos, costos, precios en divisas y registros de ventas son estrictamente confidenciales y permanecen guardados únicamente en la memoria local de su teléfono.
+                    <strong>Garantía Absoluta de Privacidad Comercial:</strong> Sus productos, precios, costos, ventas y cuentas por cobrar permanecen en su teléfono o, si usted lo autoriza voluntariamente, en su propia cuenta privada de Google Drive y Google Sheets. El desarrollador nunca almacena ni comercializa la información de su negocio.
                 </div>
 
                 <!-- Interactive Tabbed Transparency Matrix -->
@@ -872,17 +878,19 @@
                 <h2><span class="icon">1</span> Política de Privacidad e Información Recopilada</h2>
                 <p>Transparencia total sobre el manejo de la información registrada en la aplicación:</p>
 
-                <h3>1.1. Información de Inventario (100% On-Device)</h3>
-                <p>Los datos ingresados por el usuario se procesan exclusivamente dentro de la memoria local del equipo:</p>
+                <h3>1.1. Información de Inventario y Negocio</h3>
+                <p>Los datos ingresados por el usuario se almacenan en su dispositivo local y, únicamente cuando el usuario vincula voluntariamente su cuenta de Google, se sincronizan con su propio Google Drive y Google Sheets:</p>
                 <ul>
                     <li>Catálogo de productos, nombres, marcas, categorías e imágenes asignadas.</li>
                     <li>Códigos de barras (EAN-13, CODE-128, QR, etc.).</li>
                     <li>Precios de costo, precios en moneda local y divisas (USD/EUR), tasa de cambio y stock.</li>
-                    <li>Registros de clientes, proveedores y tickets de ventas finalizadas.</li>
+                    <li>Registros de clientes, proveedores, cuentas por cobrar y tickets de ventas finalizadas.</li>
                 </ul>
 
-                <h3>1.2. Sin Registro ni Servidores de Cuentas</h3>
-                <p>No se requiere registro, creación de usuario, contraseñas ni recolección de correo electrónico para usar la aplicación.</p>
+                <h3>1.2. Uso de Google Drive, Google Sheets y Validación de Licencias</h3>
+                <p>Si el usuario autoriza el acceso con su cuenta de Google, la aplicación solicita únicamente permiso para guardar copias de seguridad generadas por la app (<code>drive.file</code>) y sincronizar su hoja de cálculo (<code>spreadsheets</code>) en su propia cuenta privada de Google.</p>
+                <p><strong>Política de Uso Limitado de APIs de Google:</strong> El uso y la transferencia de información recibida de las APIs de Google por parte de esta aplicación cumplen estrictamente con la <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Política de Datos de Usuario de los Servicios API de Google</a>, incluidos los requisitos de Uso Limitado. Nunca vendemos, compartimos ni usamos sus archivos o datos de Google para publicidad o terceros.</p>
+                <p>Adicionalmente, la aplicación utiliza un identificador técnico del dispositivo únicamente en el servicio de licencias para validar la activación y asignar el período de prueba gratuita de 60 días; dicho servicio no almacena inventarios, ventas ni datos comerciales de los usuarios.</p>
             </section>
 
             <!-- Sección 2: Permisos del Dispositivo -->
@@ -906,21 +914,21 @@
                 <h3>3.1. Base de Datos Aislada SQLite (Room)</h3>
                 <p>Toda la información del negocio se guarda en la base de datos interna aislada que el sistema operativo Android protege contra accesos de aplicaciones externas.</p>
 
-                <h3>3.2. Archivos Exportados (Excel / PDF)</h3>
-                <p>Cuando el usuario decide exportar su inventario o reportes, los archivos se guardan directamente en el directorio local seleccionado por el usuario.</p>
+                <h3>3.2. Archivos Exportados y Respaldo en Google Drive / Sheets</h3>
+                <p>Cuando el usuario decide exportar reportes (Excel / PDF / respaldo) o activar la sincronización, los archivos se guardan localmente o se envían cifrados (HTTPS) directamente a su propio Google Drive y Google Sheets.</p>
             </section>
 
             <!-- Sección 4: Eliminación y Control de Datos -->
             <section id="eliminacion" class="card searchable-card">
                 <h2><span class="icon">4</span> Control de Datos y Eliminación Definitiva</h2>
-                <p>Al no existir cuentas en la nube ni almacenamiento en servidores remotos, el usuario posee el control total e inmediato sobre su información:</p>
+                <p>Al almacenarse sus datos en su propio teléfono y, si usted lo activa, en su propia cuenta de Google Drive / Google Sheets, usted posee el control total e inmediato sobre su información:</p>
 
                 <div class="delete-request-box">
                     <h4>Mecanismo de Eliminación de Datos</h4>
                     <p>Usted puede borrar toda su información de forma instantánea sin requerir autorizaciones ni solicitudes a terceros:</p>
                     <ul style="padding-left: 20px; color: var(--text-main); font-size: 0.95rem;">
-                        <li style="margin-bottom: 8px;"><strong>Desde la aplicación:</strong> Puede borrar productos individuales, historiales o limpiar la base de datos en el menú de Ajustes.</li>
-                        <li style="margin-bottom: 8px;"><strong>Desde los Ajustes de Android:</strong> Ingrese a <em>Ajustes &gt; Aplicaciones &gt; Escáner y Calculadora Multimoneda &gt; Almacenamiento &gt; Borrar Datos</em> para eliminar el 100% de la información.</li>
+                        <li style="margin-bottom: 8px;"><strong>Desde la aplicación:</strong> Puede borrar productos individuales, historiales, limpiar la base de datos o desvincular su cuenta de Google en el menú de Ajustes.</li>
+                        <li style="margin-bottom: 8px;"><strong>Desde los Ajustes de Android o Cuenta de Google:</strong> Ingrese a <em>Ajustes &gt; Aplicaciones &gt; Escáner y Calculadora Multimoneda &gt; Almacenamiento &gt; Borrar Datos</em>, y puede revocar el acceso de Drive/Sheets desde los permisos de seguridad de su Cuenta de Google o eliminar sus archivos directamente en su Google Drive.</li>
                         <li style="margin-bottom: 8px;"><strong>Desinstalación:</strong> Al desinstalar la app, Android borra automáticamente la totalidad de los datos locales asociados.</li>
                     </ul>
                 </div>
@@ -930,8 +938,10 @@
             <section id="terceros" class="card searchable-card">
                 <h2><span class="icon">5</span> Servicios de Terceros</h2>
                 <ul>
-                    <li><strong>Google Play Services:</strong> Infraestructura estándar requerida por Android para la correcta ejecución de aplicaciones oficiales.</li>
-                    <li><strong>Consulta de Tasas de Cambio:</strong> Consulta mediante lectura pública directa sin enviar identificadores personales.</li>
+                    <li><strong>Google Drive y Google Sheets API (Opcional):</strong> Utilizado únicamente cuando el usuario vincula su cuenta de Google para respaldar archivos y sincronizar hojas de cálculo de su negocio en su propia cuenta privada.</li>
+                    <li><strong>Servicio de Licencias (Firebase):</strong> Utilizado exclusivamente para comprobar licencias activas, pruebas gratuitas de 60 días y seguridad de activación (no almacena datos del negocio).</li>
+                    <li><strong>Google Play Services:</strong> Infraestructura estándar requerida por Android para el funcionamiento e inicio de sesión de aplicaciones oficiales.</li>
+                    <li><strong>Consulta Automática de Tasas de Cambio:</strong> Consulta automática de tasas oficiales y de mercado sin enviar datos comerciales del usuario.</li>
                 </ul>
             </section>
 
